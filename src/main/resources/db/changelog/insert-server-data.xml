@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
+
+    <changeSet id="03" author="shuvo">
+        <comment>Inserting Server records</comment>
+        <insert tableName="server">
+            <column name="id" valueNumeric="1"/>
+            <column name="ipAddress" value="techgeeknext_company_01"/>
+            <column name="name" value="01"/>
+            <column name="memory" value="01"/>
+            <column name="type" value="01"/>
+<!--            <column name="imageUrl" value="01"/>-->
+            <column name="status" value="SERVER_UP"/>
+        </insert>
+
+    </changeSet>
+</databaseChangeLog>
