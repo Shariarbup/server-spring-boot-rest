@@ -7,28 +7,32 @@
          http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd">
 
     <changeSet id="01" author="shariar">
-        <createTable tableName="server"
+<!--        <sql>my_state AS ENUM ('SERVER_UP','SERVER_DOWN')</sql>-->
+        <createTable tableName="serverp"
                      remarks="Server Data">
-            <column name="id" type="int" autoIncrement="true">
+
+            <column name="id" type="bigint" autoIncrement="true">
                 <constraints nullable="false" unique="true" primaryKey="true"/>
             </column>
             <column name="ipAddress" type="varchar(255)">
                 <constraints nullable="false" unique="true"/>
             </column>
-            <column name="name" type="int">
+            <column name="name" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="memory" type="int">
+            <column name="memory" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="type" type="int">
+            <column name="type" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="imageUrl" type="int">
+            <column name="imageUrl" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
-            <column name="status" type="io.gateways.server.enumeration.Status">
+            <column name="status" type="ENUM('SERVER_UP','SERVER_DOWN')">
+
                 <constraints nullable="false"/>
+
             </column>
         </createTable>
 

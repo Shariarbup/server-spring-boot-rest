@@ -8,6 +8,7 @@ import io.gateways.server.repo.ServerRepository;
 import io.gateways.server.service.ServerService;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -35,11 +36,16 @@ public class ServerServiceImpl implements ServerService {
 
     @Override
     public ServerDto createServer(ServerDto serverDto) {
-        Server server = this.modelMapper.map(serverDto, Server.class);
+
+        Server server = new Server();
+//                this.modelMapper.map(serverDto, Server.class);
+        BeanUtils.copyProperties(serverDto, server);
         log.info("Saving server: {}", server.getName());
         server.setImageUrl(SetServerImageUrl());
         Server newServer = serverRepository.save(server);
-        return this.modelMapper.map(newServer, ServerDto.class);
+        ServerDto serverDto1 = new ServerDto();
+        BeanUtils.copyProperties(newServer, serverDto1);
+        return serverDto1;
     }
 
 

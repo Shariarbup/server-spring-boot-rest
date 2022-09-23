@@ -6,6 +6,7 @@ import io.gateways.server.model.Server;
 import io.gateways.server.service.ReportService;
 import io.gateways.server.service.ServerService;
 import io.gateways.server.utils.Response;
+import lombok.extern.slf4j.Slf4j;
 import net.sf.jasperreports.engine.JRException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
 @CrossOrigin(value = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/v1/servers")
+@Slf4j
 public class ServerController {
     @Autowired
     private ServerService serverService;
@@ -41,7 +43,7 @@ public class ServerController {
 
     @GetMapping("/")
     public ResponseEntity<Response> getAllServersList() throws InterruptedException {
-        TimeUnit.SECONDS.sleep(2);
+//        TimeUnit.SECONDS.sleep(2);
         return ResponseEntity.ok(
                 Response.builder()
                         .timeStamp(LocalDateTime.now())
@@ -80,6 +82,26 @@ public class ServerController {
                         .message("Server created")
                         .status(CREATED)
                         .statusCode(CREATED.value()).build()
+        );
+    }
+
+    @PutMapping ("/{id}")
+    public ResponseEntity<Response> updateServer( @Valid @RequestBody ServerDto serverDto, @PathVariable(value = "id") Long id){
+        ServerDto getServerById = serverService.getServerById(id);
+        getServerById.setIpAddress(serverDto.getIpAddress());
+        getServerById.setName(serverDto.getName());
+        getServerById.setMemory(serverDto.getMemory());
+        getServerById.setType(serverDto.getType());
+        getServerById.setStatus(serverDto.getStatus());
+        ServerDto updateServer = serverService.updateServer(getServerById);
+        log.info("Updated server", updateServer);
+        return ResponseEntity.ok(
+                Response.builder()
+                        .timeStamp(LocalDateTime.now())
+                        .data(of("server", updateServer))
+                        .message("Server updated")
+                        .status(OK)
+                        .statusCode(OK.value()).build()
         );
     }
 

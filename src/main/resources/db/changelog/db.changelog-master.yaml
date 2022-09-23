@@ -3,3 +3,5 @@ databaseChangeLog:
       file: db/changelog/create-server-schema.xml
   - include:
         file: db/changelog/insert-server-data.xml
+  - include:
+      file: db/changelog/update-server-data.xml

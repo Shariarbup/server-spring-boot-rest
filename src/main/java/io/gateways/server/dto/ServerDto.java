@@ -22,6 +22,15 @@ public class ServerDto {
     @NotEmpty(message = "Type should not be blank.")
     private String type;
     private String imageUrl;
-    @NotEmpty(message = "Status should not be blank.")
+//    @NotEmpty(message = "Status should not be blank.")
     private String status;
+
+    public ServerDto(String ipAddress, String name, String memory, String type, String imageUrl, String status) {
+        this.ipAddress = ipAddress;
+        this.name = name;
+        this.memory = memory;
+        this.type = type;
+        this.imageUrl = imageUrl;
+        this.status = status;
+    }
 }

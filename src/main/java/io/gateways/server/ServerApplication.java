@@ -31,6 +31,8 @@ public class ServerApplication {
 //                    "Web Srver", "http://localhost:8080/server/image/server3.png", Status.SERVER_UP));
 //            serverRepository.save(new Server(null, "192.168.1.14","Red hat enterprise linux", "64 GB",
 //                    "Mail Srver", "http://localhost:8080/server/image/server4.png", Status.SERVER_DOWN));
+//            serverRepository.save(new Server(null, "192.168.55.215","BJIT", "64 GB",
+//                    "Personal PC", "http://localhost:8080/server/image/server4.png", Status.SERVER_DOWN));
 //        };
 //    }
     @Bean
