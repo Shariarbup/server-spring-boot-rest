@@ -40,6 +40,10 @@
                     </textElement>
                     <text><![CDATA[Developed By- Shariar]]></text>
                 </staticText>
+                <image>
+                    <reportElement x="240" y="13" width="106" height="66" uuid="93aadfc7-68e5-4305-9f76-fba05f3c63a7"/>
+                    <imageExpression><![CDATA["https://www.logodesign.net/logo/line-art-house-roof-and-buildings-4485ld.png"]]></imageExpression>
+                </image>
             </frame>
         </band>
     </title>

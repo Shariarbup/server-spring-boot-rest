@@ -25,6 +25,8 @@ public class ServerDto {
 //    @NotEmpty(message = "Status should not be blank.")
     private String status;
 
+    private UserDto user;
+
     public ServerDto(String ipAddress, String name, String memory, String type, String imageUrl, String status) {
         this.ipAddress = ipAddress;
         this.name = name;

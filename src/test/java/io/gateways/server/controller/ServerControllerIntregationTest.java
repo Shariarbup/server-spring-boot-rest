@@ -108,9 +108,16 @@ class ServerControllerIntregationTest {
     }
     @Test
     void shouldGenerateReport() throws Exception{
+        List<Server> servers = new ArrayList<>(
+                Arrays.asList(new Server(50L,"192.168.10.688","bjit ww","in memory", "type test","url test",Status.SERVER_UP),
+                        new Server(51L,"192.168.10.689","bjit ww","in memory", "type test","url test",Status.SERVER_UP),
+                        new Server(52L,"192.168.10.690","bjit ww","in memory", "type test","url test",Status.SERVER_UP),
+                        new Server(53L,"192.168.10.691","bjit ww","in memory", "type test","url test",Status.SERVER_UP),
+                        new Server(54L,"192.168.10.692","bjit ww","in memory", "type test","url test",Status.SERVER_UP)
+                ));
         String format = "pdf";
         String path= "D:\\All programming TEXT NOTE OF MINE\\Muntakim vai crud\\report";
-        when(reportService.exportReport(format)).thenReturn("report generated in this path: "+path);
+        when(reportService.exportReport(format,servers)).thenReturn("report generated in this path: "+path);
         mockMvc.perform(get("/api/v1/servers/report/{format}",format))
                 .andExpect(status().isOk())
                 .andDo(print());

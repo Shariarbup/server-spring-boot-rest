@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -33,18 +34,18 @@ public class ServerServiceImpl implements ServerService {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
 
     @Override
     public ServerDto createServer(ServerDto serverDto) {
 
-        Server server = new Server();
-//                this.modelMapper.map(serverDto, Server.class);
-        BeanUtils.copyProperties(serverDto, server);
+        Server server = this.modelMapper.map(serverDto, Server.class);
         log.info("Saving server: {}", server.getName());
         server.setImageUrl(SetServerImageUrl());
         Server newServer = serverRepository.save(server);
-        ServerDto serverDto1 = new ServerDto();
-        BeanUtils.copyProperties(newServer, serverDto1);
+        ServerDto serverDto1 = this.modelMapper.map(newServer, ServerDto.class);
         return serverDto1;
     }
 
@@ -78,6 +79,7 @@ public class ServerServiceImpl implements ServerService {
     public ServerDto updateServer(ServerDto serverDto) {
         Server server = this.modelMapper.map(serverDto, Server.class);
         log.info("Updating server: {}", server.getName());
+        server.getUser().setPassword(this.passwordEncoder.encode(server.getUser().getPassword()));
         Server newServer = serverRepository.save(server);
         return this.modelMapper.map(newServer, ServerDto.class);
     }

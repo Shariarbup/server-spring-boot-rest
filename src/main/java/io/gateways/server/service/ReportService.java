@@ -18,9 +18,9 @@ import java.util.Map;
 public class ReportService {
     @Autowired
     private ServerRepository serverRepository;
-    public String exportReport(String reportFormat) throws FileNotFoundException, JRException {
+    public String exportReport(String reportFormat, List<Server> servers) throws FileNotFoundException, JRException {
         String path= "D:\\All programming TEXT NOTE OF MINE\\Muntakim vai crud\\report";
-        List<Server> servers = serverRepository.findAll();
+
         //load file and compile it
         File file = ResourceUtils.getFile("classpath:server.jrxml");
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());

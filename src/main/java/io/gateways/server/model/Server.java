@@ -24,4 +24,7 @@ public class Server {
     private String type;
     private String imageUrl;
     private Status status;
+    private String bill;
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private User user;
 }

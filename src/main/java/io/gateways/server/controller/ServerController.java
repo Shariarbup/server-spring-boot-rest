@@ -3,6 +3,7 @@ package io.gateways.server.controller;
 import io.gateways.server.dto.ServerDto;
 import io.gateways.server.enumeration.Status;
 import io.gateways.server.model.Server;
+import io.gateways.server.repo.ServerRepository;
 import io.gateways.server.service.ReportService;
 import io.gateways.server.service.ServerService;
 import io.gateways.server.utils.Response;
@@ -12,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -20,6 +22,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -27,7 +30,9 @@ import static java.util.Map.*;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
 
-@CrossOrigin(value = "http://localhost:4200")
+//@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST},maxAge = 3600)
+//@CrossOrigin(origins = {"http://localhost:4200"}, methods = {RequestMethod.GET, RequestMethod.POST})
+@CrossOrigin("*")
 @RestController
 @RequestMapping("/api/v1/servers")
 @Slf4j
@@ -41,6 +46,11 @@ public class ServerController {
     @Autowired
     private ModelMapper modelMapper;
 
+    @Autowired
+    private ServerRepository serverRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     @GetMapping("/")
     public ResponseEntity<Response> getAllServersList() throws InterruptedException {
 //        TimeUnit.SECONDS.sleep(2);
@@ -69,7 +79,8 @@ public class ServerController {
 
     @GetMapping("/report/{format}")
 	public ResponseEntity<String> generateReport(@PathVariable String format) throws JRException, FileNotFoundException {
-		return ResponseEntity.ok().body(reportService.exportReport(format));
+        List<Server> servers = serverRepository.findAll();
+		return ResponseEntity.ok().body(reportService.exportReport(format, servers));
 	}
 
     @PostMapping("/")
@@ -93,6 +104,7 @@ public class ServerController {
         getServerById.setMemory(serverDto.getMemory());
         getServerById.setType(serverDto.getType());
         getServerById.setStatus(serverDto.getStatus());
+        getServerById.setUser(serverDto.getUser());
         ServerDto updateServer = serverService.updateServer(getServerById);
         log.info("Updated server", updateServer);
         return ResponseEntity.ok(
