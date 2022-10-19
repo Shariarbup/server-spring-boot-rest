@@ -101,25 +101,25 @@ public class ServerApplication implements CommandLineRunner{
 
     @Override
     public void run(String... args) throws Exception {
-        try{
-            List<Server> servers = serverRepository.findByBill("not paid");
-            System.out.println("servers"+servers);
-            List<String> email = new ArrayList<>();
-
-            servers.forEach((server)->{
-                if(server.getBill().equals("non-paid")){
-                    email.add(server.getUser().getEmail());
-                }
-            });
-            System.out.println(email);
-            String[] bcc = {};
-            for (int i = 0; i < email.size(); i++) {
-                bcc[i] = email.get(i);
-            }
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }
+//        try{
+//            List<Server> servers = serverRepository.findByBill("not paid");
+//            System.out.println("servers"+servers);
+//            List<String> email = new ArrayList<>();
+//
+//            servers.forEach((server)->{
+//                if(server.getBill().equals("non-paid")){
+//                    email.add(server.getUser().getEmail());
+//                }
+//            });
+//            System.out.println(email);
+//            String[] bcc = {};
+//            for (int i = 0; i < email.size(); i++) {
+//                bcc[i] = email.get(i);
+//            }
+//
+//        }catch(Exception e){
+//            e.printStackTrace();
+//        }
         System.out.println(this.passwordEncoder.encode("123456"));
         try{
             Role role1 = new Role();

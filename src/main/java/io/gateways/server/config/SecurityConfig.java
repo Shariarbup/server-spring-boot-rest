@@ -42,8 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors();
-//                .configurationSource(corsConfigurationSource());
+        http.cors()
+                .configurationSource(corsConfigurationSource());
         http.
                 csrf().disable()
                 .authorizeRequests()
@@ -78,9 +78,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         final CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList("http://192.168.55.105:4200"));
+        config.setAllowedOrigins(Arrays.asList("http://192.168.71.82:4200"));
         config.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS", "DELETE", "PUT", "PATCH"));
-        config.setAllowCredentials(true);
         config.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
 //        config.setAllowedHeaders(Arrays.asList("Authorization", "Requestor-Type"));
 //        config.setExposedHeaders(Arrays.asList("X-Get-Header"));

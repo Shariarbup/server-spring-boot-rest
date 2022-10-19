@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.*;
 
-//@CrossOrigin(origins = {"http://192.168.55.105:4200"}, methods = {RequestMethod.GET, RequestMethod.POST},maxAge = 3600)
+//@CrossOrigin(origins = {"http://192.168.71.82:4200"}, methods = {RequestMethod.GET, RequestMethod.POST},maxAge = 3600)
 //@CrossOrigin(origins = {"http://localhost:4200"}, methods = {RequestMethod.GET, RequestMethod.POST})
 @CrossOrigin("*")
 @RestController
